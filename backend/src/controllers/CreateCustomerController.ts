@@ -11,7 +11,7 @@ class CreateCustomerController{
         //Espera a execução do método 'execute()' presente na classe do serviço 
         const customer = await customerService.execute();
         
-        //devolve para a api o que o retorno da execução
+        //devolve para a api o retorno da execução do método execute()
         reply.send(customer);
     
     }
