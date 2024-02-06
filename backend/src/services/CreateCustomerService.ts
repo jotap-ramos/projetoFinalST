@@ -17,7 +17,7 @@ class CreateCustomerService{
 
         //armazena dados do usuário no banco de dados
         const customer = await prismaClient.customer.create({
-            data: {
+            data:{
                 name,
                 email,
                 status: true

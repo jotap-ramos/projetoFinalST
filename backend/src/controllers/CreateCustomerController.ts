@@ -6,7 +6,7 @@ class CreateCustomerController{
     async handle(request: FastifyRequest, reply: FastifyReply){
         
         //guarda os valores de name e email enviados via requisição em formato JSON
-        const {name, email} = request.body as { name: string, email: string};
+        const { name, email } = request.body as { name: string, email: string};
 
         //inicializa o serviço (inicializa a classe que foi criada para o serviço)
         const customerService = new CreateCustomerService()

@@ -1,5 +1,6 @@
 import {FastifyInstance, FastifyPluginOptions, FastifyRequest, FastifyReply } from "fastify"
 import { CreateCustomerController } from "./controllers/CreateCustomerController"
+import { ListCustomersController } from './controllers/ListCustomersController'
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions){
     //Rota de teste inicial 
@@ -7,7 +8,14 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
         return { ok: true }
     })
 
+    //Rota para cadastro de novo cliente
     fastify.post("/customer", async (request:FastifyRequest, reply: FastifyReply) => {
         return new CreateCustomerController().handle(request, reply)
     })
+
+    //Rota para listagem de clientes
+    fastify.get("/customers", async (request:FastifyRequest, reply: FastifyReply) => {
+        return new ListCustomersController().handle(request, reply)
+    })
+
 }
