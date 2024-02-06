@@ -1,5 +1,5 @@
 import {FastifyRequest, FastifyReply} from 'fastify'
-import { CreateCustomerService } from '../services/CreateCustomerService'}
+import { CreateCustomerService } from '../services/CreateCustomerService'
 
 class CreateCustomerController{
     //método handle recebe dois parâmetro request/reply
