@@ -6,6 +6,11 @@ import { routes } from './routes';
 //Retorna o logger 
 const app = Fastify({ logger: true })
 
+//retorna error declarados nas rotas (throw new error) 
+app.setErrorHandler((error, request, reply ) => {
+    reply.code(400).send({message: error.message})
+})
+
 //inicializa a aplicação 
 const start = async () => {
     
