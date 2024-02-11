@@ -1,5 +1,5 @@
 import {FiTrash} from 'react-icons/fi'
-import {useEffect, useState} from 'react'
+import {useEffect, useState, FormEvent, useRef} from 'react'
 import { api } from './services/api'
 
 //criação de tipagem para reconhecimento dos objetos que serão listados no array de objetos
@@ -17,6 +17,10 @@ export default function App(){
   //declaração do array que conterá a lista de 'usuários' atualizada 'userState'
   const [customers, setCustomers] = useState<CustomerProps[]>([])
 
+  //declaração de referência para os inputs a serem inseridos pelo usuário
+  const nameRef = useRef<HTMLInputElement| null>(null)
+  const emailRef = useRef<HTMLInputElement | null>(null)
+
   //hook 'useEffect', não exige parâmetro, roda durante a renderização da página
   useEffect(() => {loadCustomers();},[])
 
@@ -25,17 +29,37 @@ export default function App(){
     setCustomers(response.data);
   }
 
+  //função assíncrona porque faremos uma requisição ao http
+  async function handleSubmit(event: FormEvent){
+
+    //previne o comportamento padrão de recarregamento da página
+    event.preventDefault();
+
+    //tratativa pra impedir submissão com um dos campos faltando (nome ou email)
+    if(!nameRef.current?.value || !emailRef.current?.value) return;
+
+    const response = await api.post("/customer", {
+      name: nameRef.current?.value,
+      email: emailRef.current?.value,
+    })
+
+    console.log(response.data)
+
+  }
+
   return(
     <div className="w-full min-h-screen bg-gray-900 flex justify-center first-letter px-4">
       <main className="my-10 w-full md:max-w-2xl">
         <h1 className="text-4xl font-medium text-white">Clientes</h1>
 
-        <form className="flex flex-col my-6">
+        {/* formulário com a propriedade onSubmit, que chama a função handleSubmit,
+        responsável por  */}
+        <form className="flex flex-col my-6" onSubmit={handleSubmit}>
           <label className="font-medium text-white">Nome:</label>
-          <input className="w-full mb-5 p-2 rounded" type="text" placeholder="Digite seu nome complet..."/>
+          <input ref= {nameRef} className="w-full mb-5 p-2 rounded" type="text" placeholder="Digite seu nome complet..."/>
 
           <label className="font-medium text-white">Email:</label>
-          <input className="w-full mb-5 p-2 rounded" type="text" placeholder="Digite seu email..."/>
+          <input ref= {emailRef} className="w-full mb-5 p-2 rounded" type="text" placeholder="Digite seu email..."/>
 
           <input type="submit" value="Cadastrar" className="cursor-pointer w-full p-2 bg-green-500 rounded font-medium" />
         </form>
