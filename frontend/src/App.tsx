@@ -46,6 +46,9 @@ export default function App(){
     //acresenta novo usuário inserido à lista de usuários mostrada no frontend 
     setCustomers(allCustomers => [...allCustomers, response.data])
 
+    //limpa campo dos inputs após inserção
+    nameRef.current.value = "";
+    emailRef.current.value = "";
   }
 
   //função assíncrona para lidar com a requisição de deleção de um usuário ('customer')
