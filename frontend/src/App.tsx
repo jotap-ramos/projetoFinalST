@@ -43,8 +43,28 @@ export default function App(){
       email: emailRef.current?.value,
     })
 
-    console.log(response.data)
+    //acresenta novo usuário inserido à lista de usuários mostrada no frontend 
+    setCustomers(allCustomers => [...allCustomers, response.data])
 
+  }
+
+  //função assíncrona para lidar com a requisição de deleção de um usuário ('customer')
+  async function handleDelete(id: string){
+    try{
+      await api.delete("/customer", {
+        params: {
+          id: id,
+        }
+      })
+
+      //mapeia todos os custormers listados e retorna todos menos o customer com o id do customer que 
+      // selecionou-se para deleção (ou seja, que foi clicado e teve o id enviado na requisição)
+      const allCustomers = customers.filter((customer) => customer.id !== id)
+      setCustomers(allCustomers);
+
+    }catch(err){
+      console.log(err)
+    }
   }
 
   return(
@@ -74,7 +94,7 @@ export default function App(){
               <p><span className="font-medium">Email:</span> {customer.email}</p>
               <p><span className="font-medium">Status:</span>{ customer.status? "ATIVO" : "INATIVO"}</p>
 
-              <button className=" bg-red-500 w-7 h-7 flex items-center justify-center rounded-lg absolute right-0 -top-2 ">
+              <button onClick={() => handleDelete(customer.id)} className=" bg-red-500 w-7 h-7 flex items-center justify-center rounded-lg absolute right-0 -top-2 ">
                 <FiTrash size={18} color="#FFF"/>
               </button>
             </article>
