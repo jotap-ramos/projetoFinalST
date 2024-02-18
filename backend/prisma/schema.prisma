@@ -17,6 +17,7 @@ model Customer {
   status Boolean 
   created_at DateTime? @default(now())
   updated_at DateTime? @updatedAt()
+  recipts Recipt[]
 
   //Mapeia o modelo e atribui o nome "customers"
   @@map("customers")
@@ -27,11 +28,14 @@ model Recipt {
   tempo DateTime 
   valor_total Float
   created_at DateTime? @default(now())
+  customer_id String  @map("customer_id") @db.ObjectId
+  customer Customer @relation(fields: [customer_id],references: [id])
+
 
   @@map("recipts")
 }
 
-model Stock{
+model Car{
 id String @id @default(auto()) @map("_id") @db.ObjectId
 modelo String
 status String
