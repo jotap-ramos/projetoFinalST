@@ -16,8 +16,27 @@ model Customer {
   email String 
   status Boolean 
   created_at DateTime? @default(now())
-  updated_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt()
 
   //Mapeia o modelo e atribui o nome "customers"
   @@map("customers")
+}
+
+model Recipt {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  tempo DateTime 
+  valor_total Float
+  created_at DateTime? @default(now())
+
+  @@map("recipts")
+}
+
+model Stock{
+id String @id @default(auto()) @map("_id") @db.ObjectId
+modelo String
+status String
+valor_mes Float
+condicao Float
+
+@@map("stocks")
 }
