@@ -38,9 +38,9 @@ model Recipt {
 model Car{
 id String @id @default(auto()) @map("_id") @db.ObjectId
 modelo String
-status String
+status Boolean
 valor_mes Float
-condicao Float
+condicao String
 
-@@map("stocks")
+@@map("cars")
 }
