@@ -21,8 +21,6 @@ class CreateCustomerService{
                 name,
                 email,
                 status: true
-            },include: {
-                recipt: true
             }
         })
 
