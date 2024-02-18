@@ -1,10 +1,10 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { ListCarService } from '../services/ListCarService';
+import { ListCarsService } from '../services/ListCarsService';
 
 class ListCarController {
   async list(request: FastifyRequest, reply: FastifyReply) {
     try {
-      const listCarService = new ListCarService();
+      const listCarService = new ListCarsService();
       
       const cars = await listCarService.execute();
       
