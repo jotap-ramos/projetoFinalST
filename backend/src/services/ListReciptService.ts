@@ -1,9 +1,9 @@
 import prismaClient from "../prisma";
 
-// Cria uma classe responsável por listar os carros cadastrados
+// Cria uma classe responsável por listar os recibos
 class ListReciptService {
     async execute() {
-        // Busca os carros cadastrados na coleção 'car'
+        // Busca as listas cadastradas na coleção 'recipt'
         const recipts = await prismaClient.recipt.findMany();
         return recipts;
     }
