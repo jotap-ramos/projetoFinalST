@@ -1,5 +1,4 @@
-import { Identifier } from "typescript";
-import prismaClient from "../prisma";
+import prismaClient from "../../prisma";
 
 interface CreateReciptProps {
   tempo: string;
