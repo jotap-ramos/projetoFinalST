@@ -1,23 +1,20 @@
+import { Identifier } from "typescript";
 import prismaClient from "../prisma";
 
-
-interface CreateReciptProps{
-tempo : string,
-valor_total: number,
+interface CreateReciptProps {
+  tempo: string;
+  valor_total: number;
+  customer_id: string;
 }
 
-class CreateReciptService{
-    async execute({tempo,valor_total}: CreateReciptProps){
-
+class CreateReciptService {
+  async execute(createReciptProps: CreateReciptProps) {
     const recipt = await prismaClient.recipt.create({
-            data:{
-              tempo,
-              valor_total
-            }
-        })
+      data: createReciptProps,
+    });
 
-        return recipt
-    }
+    return recipt;
+  }
 }
 
-export { CreateReciptService }
+export { CreateReciptService };
